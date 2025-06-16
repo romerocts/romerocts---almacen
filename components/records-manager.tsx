@@ -213,6 +213,18 @@ export function RecordsManager() {
     document.body.removeChild(link)
   }
 
+  // Eliminar préstamo
+  const handleDeleteLoan = async (loanId: number) => {
+    if (!confirm("¿Seguro que deseas eliminar este préstamo? Esta acción no se puede deshacer.")) return;
+    const { error } = await supabase.from("loans").delete().eq("id", loanId);
+    if (error) {
+      alert("Error al eliminar el préstamo");
+    } else {
+      setLoans(loans.filter((loan) => loan.id !== loanId));
+      setFilteredLoans(filteredLoans.filter((loan) => loan.id !== loanId));
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="space-y-6">
@@ -360,6 +372,14 @@ export function RecordsManager() {
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">{loan.user_name}</CardTitle>
                 {getStatusBadge(loan)}
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  className="ml-2"
+                  onClick={() => handleDeleteLoan(loan.id)}
+                >
+                  Eliminar
+                </Button>
               </div>
               <div className="text-sm text-gray-500 space-y-1">
                 <div className="flex items-center gap-4">

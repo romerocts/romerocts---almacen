@@ -46,7 +46,9 @@ export function InventoryManager() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [isAddTypeDialogOpen, setIsAddTypeDialogOpen] = useState(false)
+  const [isDeleteTypeDialogOpen, setIsDeleteTypeDialogOpen] = useState(false)
   const [editingTool, setEditingTool] = useState<Tool | null>(null)
+  const [selectedTypeToDelete, setSelectedTypeToDelete] = useState<string>("")
 
   // Estados del formulario
   const [newTool, setNewTool] = useState({
@@ -239,6 +241,24 @@ export function InventoryManager() {
     } catch (error) {
       console.error("Error agregando tipo de herramienta:", error)
       toast.error("Error al agregar el tipo de herramienta")
+    }
+  }
+
+  // Eliminar tipo de herramienta y todas las herramientas asociadas
+  const handleDeleteToolType = async (typeId: number, typeName: string) => {
+    if (!confirm(`¿Estás seguro de que quieres eliminar el tipo de herramienta "${typeName}" y todas sus herramientas asociadas? Esta acción no se puede deshacer.`)) return
+    try {
+      // Eliminar herramientas asociadas
+      const { error: toolsError } = await supabase.from("tools").delete().eq("tool_type_id", typeId)
+      if (toolsError) throw toolsError
+      // Eliminar el tipo de herramienta
+      const { error } = await supabase.from("tool_types").delete().eq("id", typeId)
+      if (error) throw error
+      toast.success("Tipo de herramienta y herramientas asociadas eliminados exitosamente")
+      fetchData()
+    } catch (error) {
+      console.error("Error eliminando tipo de herramienta:", error)
+      toast.error("Error al eliminar el tipo de herramienta")
     }
   }
 
@@ -651,6 +671,54 @@ export function InventoryManager() {
           )}
         </DialogContent>
       </Dialog>
+
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <div className="flex flex-col md:flex-row md:items-center gap-4">
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => setIsDeleteTypeDialogOpen(true)}
+          >
+            Eliminar Tipo de Herramienta
+          </Button>
+          <Dialog open={isDeleteTypeDialogOpen} onOpenChange={setIsDeleteTypeDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Eliminar Tipo de Herramienta</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-4">
+                <Label htmlFor="deleteToolType">Selecciona el tipo a eliminar</Label>
+                <Select
+                  value={selectedTypeToDelete}
+                  onValueChange={setSelectedTypeToDelete}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona un tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {toolTypes.map((type) => (
+                      <SelectItem key={type.id} value={type.id.toString()}>
+                        {type.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="destructive"
+                  disabled={!selectedTypeToDelete}
+                  onClick={async () => {
+                    const type = toolTypes.find((t) => t.id.toString() === selectedTypeToDelete)
+                    if (type) await handleDeleteToolType(type.id, type.name)
+                    setIsDeleteTypeDialogOpen(false)
+                  }}
+                >
+                  Eliminar
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
     </div>
   )
 }

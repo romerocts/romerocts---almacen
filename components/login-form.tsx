@@ -62,7 +62,7 @@ export function LoginForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="ferreteria@araque.com"
+                placeholder="Correo electrónico"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -73,7 +73,7 @@ export function LoginForm() {
               <Input
                 id="password"
                 type="password"
-                placeholder="admin"
+                placeholder="Contraseña"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -101,18 +101,11 @@ export function LoginForm() {
             </Button>
           </div>
 
-          <div className="mt-4 space-y-3">
-            <div className="p-3 bg-blue-50 rounded-lg text-sm text-blue-700">
-              <p className="font-medium">Credenciales de Demostración:</p>
-              <p>Correo: ferreteria@araque.com</p>
-              <p>Contraseña: admin</p>
-            </div>
-
-            <div className="p-3 bg-green-50 rounded-lg text-sm text-green-700">
-              <p className="font-medium">🔐 Restablecimiento de Contraseña:</p>
-              <p>Email autorizado: {EmailService.getAuthorizedEmail()}</p>
-              <p>Se enviará código real por EmailJS</p>
-            </div>
+          <div className="mt-6 text-center text-sm text-gray-500">
+            <p>¿No tienes una cuenta?</p>
+            <p>
+              Contacta al administrador del sistema para obtener acceso.
+            </p>
           </div>
         </CardContent>
       </Card>

@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "Ferretería Araque - Sistema de Gestión",
   description: "Sistema de gestión para ferretería con inventario y préstamos",
-    generator: 'v0.dev'
+  generator: 'by romerocts'
 }
 
 export default function RootLayout({

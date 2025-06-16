@@ -204,6 +204,7 @@ export function LoansManager() {
             expected_return_date: loanForm.expected_return_date || null,
             notes: loanForm.notes.trim() || null,
             status: "active",
+            loan_date: new Date().toISOString(),
           },
         ])
         .select()

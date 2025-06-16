@@ -191,9 +191,9 @@ export function RecordsManager() {
       loan.user_id_number,
       loan.user_phone || "",
       loan.user_email || "",
-      new Date(loan.loan_date).toLocaleDateString("es-ES"),
-      loan.expected_return_date ? new Date(loan.expected_return_date).toLocaleDateString("es-ES") : "",
-      loan.actual_return_date ? new Date(loan.actual_return_date).toLocaleDateString("es-ES") : "",
+      new Date(loan.loan_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true }),
+      loan.expected_return_date ? new Date(loan.expected_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true }) : "",
+      loan.actual_return_date ? new Date(loan.actual_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true }) : "",
       loan.status,
       getTotalToolsLoaned(loan),
       getTotalToolsReturned(loan),
@@ -380,12 +380,12 @@ export function RecordsManager() {
                   )}
                 </div>
                 <div className="flex items-center gap-4">
-                  <span>📅 Préstamo: {new Date(loan.loan_date).toLocaleDateString("es-ES")}</span>
+                  <span>📅 Préstamo: {new Date(loan.loan_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true })}</span>
                   {loan.expected_return_date && (
-                    <span>🔄 Esperado: {new Date(loan.expected_return_date).toLocaleDateString("es-ES")}</span>
+                    <span>🔄 Esperado: {new Date(loan.expected_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true })}</span>
                   )}
                   {loan.actual_return_date && (
-                    <span>✅ Devuelto: {new Date(loan.actual_return_date).toLocaleDateString("es-ES")}</span>
+                    <span>✅ Devuelto: {new Date(loan.actual_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true })}</span>
                   )}
                 </div>
               </div>

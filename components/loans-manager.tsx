@@ -272,7 +272,7 @@ export function LoansManager() {
       return
     }
 
-    const condition = prompt("¿En qué condición se devuelve? (excellent/good/fair/poor)") || "good"
+    const condition = "good"
 
     try {
       // Obtener la cantidad ya devuelta

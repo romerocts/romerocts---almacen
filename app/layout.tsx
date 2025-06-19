@@ -5,7 +5,7 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Ferretería Araque - Sistema de Gestión",
+  title: "Gestor - Sistema de Gestión",
   description: "Sistema de gestión para ferretería con inventario y préstamos",
   generator: 'by romerocts'
 }

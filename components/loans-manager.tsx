@@ -61,7 +61,7 @@ export function LoansManager() {
   // Estados del formulario
   const [loanForm, setLoanForm] = useState({
     user_name: "",
-    user_id_type: "DNI",
+    user_id_type: "CC",
     user_id_number: "",
     user_phone: "",
     user_email: "",
@@ -248,7 +248,7 @@ export function LoansManager() {
       setIsCreateDialogOpen(false)
       setLoanForm({
         user_name: "",
-        user_id_type: "DNI",
+        user_id_type: "CC",
         user_id_number: "",
         user_phone: "",
         user_email: "",
@@ -257,9 +257,9 @@ export function LoansManager() {
         loan_items: [],
       })
       fetchData()
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creando préstamo:", error)
-      toast.error("Error al crear el préstamo")
+      toast.error("Error al crear el préstamo: " + (error?.message || JSON.stringify(error)))
     }
   }
 
@@ -423,9 +423,9 @@ export function LoansManager() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="DNI">DNI</SelectItem>
-                        <SelectItem value="Pasaporte">Pasaporte</SelectItem>
-                        <SelectItem value="Licencia">Licencia de Conducir</SelectItem>
+                        <SelectItem value="CC">Cédula de Ciudadanía (CC)</SelectItem>
+                        <SelectItem value="TI">Tarjeta de Identidad (TI)</SelectItem>
+                        <SelectItem value="CE">Cédula de Extranjería (CE)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -447,7 +447,7 @@ export function LoansManager() {
                       type="tel"
                       value={loanForm.user_phone}
                       onChange={(e) => setLoanForm({ ...loanForm, user_phone: e.target.value })}
-                      placeholder="555-0123"
+                      placeholder="300***1234"
                     />
                   </div>
                   <div>

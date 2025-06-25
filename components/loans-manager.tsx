@@ -411,14 +411,11 @@ export function LoansManager() {
                       type="number"
                       pattern="[0-9]*"
                       inputMode="numeric"
-                      maxLength={11}
+                      maxLength={10}
                       value={loanForm.user_id_number}
-                      onChange={(e) => setLoanForm({ ...loanForm, user_id_number: e.target.value.replace(/[^0-9]/g, "").slice(0, 11) })}
+                      onChange={(e) => setLoanForm({ ...loanForm, user_id_number: e.target.value.replace(/[^0-9]/g, "").slice(0, 10) })}
                       required
                     />
-                    {loanForm.user_id_number.length > 11 && (
-                      <span className="text-xs text-red-500">Máximo 11 dígitos permitidos</span>
-                    )}
                   </div>
                   <div>
                     <Label htmlFor="idType">Tipo de Identificación</Label>
@@ -452,8 +449,11 @@ export function LoansManager() {
                     <Input
                       id="userPhone"
                       type="tel"
+                      pattern="[0-9]*"
+                      inputMode="numeric"
+                      maxLength={10}
                       value={loanForm.user_phone}
-                      onChange={(e) => setLoanForm({ ...loanForm, user_phone: e.target.value })}
+                      onChange={(e) => setLoanForm({ ...loanForm, user_phone: e.target.value.replace(/[^0-9]/g, "").slice(0, 10) })}
                       placeholder="300***1234"
                     />
                   </div>

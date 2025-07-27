@@ -169,9 +169,9 @@ export function PasswordResetForm({ onBack }: PasswordResetFormProps) {
               <Input
                 id="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={EmailService.getAuthorizedEmail()}
+                value="seincolcolombiasas@gmail.com"
+                onChange={() => { }}
+                placeholder="seincolcolombiasas@gmail.com"
                 required
                 disabled
                 className="bg-gray-50"

@@ -191,9 +191,9 @@ export function RecordsManager() {
       loan.user_id_number,
       loan.user_phone || "",
       loan.user_email || "",
-      new Date(loan.loan_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true }),
-      loan.expected_return_date ? new Date(loan.expected_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true }) : "",
-      loan.actual_return_date ? new Date(loan.actual_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true }) : "",
+      new Date(loan.loan_date).toLocaleDateString("es-ES"),
+      loan.expected_return_date ? new Date(loan.expected_return_date).toLocaleDateString("es-ES") : "",
+      loan.actual_return_date ? new Date(loan.actual_return_date).toLocaleDateString("es-ES") : "",
       loan.status,
       getTotalToolsLoaned(loan),
       getTotalToolsReturned(loan),
@@ -212,18 +212,6 @@ export function RecordsManager() {
     link.click()
     document.body.removeChild(link)
   }
-
-  // Eliminar préstamo
-  const handleDeleteLoan = async (loanId: number) => {
-    if (!confirm("¿Seguro que deseas eliminar este préstamo? Esta acción no se puede deshacer.")) return;
-    const { error } = await supabase.from("loans").delete().eq("id", loanId);
-    if (error) {
-      alert("Error al eliminar el préstamo");
-    } else {
-      setLoans(loans.filter((loan) => loan.id !== loanId));
-      setFilteredLoans(filteredLoans.filter((loan) => loan.id !== loanId));
-    }
-  };
 
   if (isLoading) {
     return (
@@ -372,14 +360,6 @@ export function RecordsManager() {
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">{loan.user_name}</CardTitle>
                 {getStatusBadge(loan)}
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  className="ml-2"
-                  onClick={() => handleDeleteLoan(loan.id)}
-                >
-                  Eliminar
-                </Button>
               </div>
               <div className="text-sm text-gray-500 space-y-1">
                 <div className="flex items-center gap-4">
@@ -400,12 +380,12 @@ export function RecordsManager() {
                   )}
                 </div>
                 <div className="flex items-center gap-4">
-                  <span>📅 Préstamo: {new Date(loan.loan_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true })}</span>
+                  <span>📅 Préstamo: {new Date(loan.loan_date).toLocaleDateString("es-ES")}</span>
                   {loan.expected_return_date && (
-                    <span>🔄 Esperado: {new Date(loan.expected_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true })}</span>
+                    <span>🔄 Esperado: {new Date(loan.expected_return_date).toLocaleDateString("es-ES")}</span>
                   )}
                   {loan.actual_return_date && (
-                    <span>✅ Devuelto: {new Date(loan.actual_return_date).toLocaleString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit", hour12: true })}</span>
+                    <span>✅ Devuelto: {new Date(loan.actual_return_date).toLocaleDateString("es-ES")}</span>
                   )}
                 </div>
               </div>

@@ -61,7 +61,7 @@ export function LoansManager() {
   // Estados del formulario
   const [loanForm, setLoanForm] = useState({
     user_name: "",
-    user_id_type: "CC",
+    user_id_type: "DNI",
     user_id_number: "",
     user_phone: "",
     user_email: "",
@@ -204,7 +204,6 @@ export function LoansManager() {
             expected_return_date: loanForm.expected_return_date || null,
             notes: loanForm.notes.trim() || null,
             status: "active",
-            loan_date: new Date().toISOString(),
           },
         ])
         .select()
@@ -248,7 +247,7 @@ export function LoansManager() {
       setIsCreateDialogOpen(false)
       setLoanForm({
         user_name: "",
-        user_id_type: "CC",
+        user_id_type: "DNI",
         user_id_number: "",
         user_phone: "",
         user_email: "",
@@ -257,9 +256,9 @@ export function LoansManager() {
         loan_items: [],
       })
       fetchData()
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error creando préstamo:", error)
-      toast.error("Error al crear el préstamo: " + (error?.message || JSON.stringify(error)))
+      toast.error("Error al crear el préstamo")
     }
   }
 
@@ -273,7 +272,7 @@ export function LoansManager() {
       return
     }
 
-    const condition = "good"
+    const condition = prompt("¿En qué condición se devuelve? (excellent/good/fair/poor)") || "good"
 
     try {
       // Obtener la cantidad ya devuelta
@@ -408,12 +407,8 @@ export function LoansManager() {
                     <Label htmlFor="userIdNumber">Número de Identificación *</Label>
                     <Input
                       id="userIdNumber"
-                      type="number"
-                      pattern="[0-9]*"
-                      inputMode="numeric"
-                      maxLength={10}
                       value={loanForm.user_id_number}
-                      onChange={(e) => setLoanForm({ ...loanForm, user_id_number: e.target.value.replace(/[^0-9]/g, "").slice(0, 10) })}
+                      onChange={(e) => setLoanForm({ ...loanForm, user_id_number: e.target.value })}
                       required
                     />
                   </div>
@@ -427,9 +422,9 @@ export function LoansManager() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="CC">Cédula de Ciudadanía (CC)</SelectItem>
-                        <SelectItem value="TI">Tarjeta de Identidad (TI)</SelectItem>
-                        <SelectItem value="CE">Cédula de Extranjería (CE)</SelectItem>
+                        <SelectItem value="DNI">DNI</SelectItem>
+                        <SelectItem value="Pasaporte">Pasaporte</SelectItem>
+                        <SelectItem value="Licencia">Licencia de Conducir</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -449,12 +444,9 @@ export function LoansManager() {
                     <Input
                       id="userPhone"
                       type="tel"
-                      pattern="[0-9]*"
-                      inputMode="numeric"
-                      maxLength={10}
                       value={loanForm.user_phone}
-                      onChange={(e) => setLoanForm({ ...loanForm, user_phone: e.target.value.replace(/[^0-9]/g, "").slice(0, 10) })}
-                      placeholder="300***1234"
+                      onChange={(e) => setLoanForm({ ...loanForm, user_phone: e.target.value })}
+                      placeholder="555-0123"
                     />
                   </div>
                   <div>

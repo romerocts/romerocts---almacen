@@ -52,7 +52,7 @@ export function Sidebar() {
                 <Wrench className="h-6 w-6 text-white" />
               </div>
               <div className="ml-3">
-                <h1 className="text-lg font-semibold text-gray-900">Gestor de Almacenamiento</h1>
+                <h1 className="text-lg font-semibold text-gray-900">Soluciones Electro</h1>
                 <p className="text-sm text-gray-500">Sistema de Gestión</p>
               </div>
             </div>

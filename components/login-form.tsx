@@ -52,7 +52,7 @@ export function LoginForm() {
               <Wrench className="h-8 w-8 text-white" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">Gestor de Almacenamiento</CardTitle>
+          <CardTitle className="text-2xl font-bold">Soluciones electro instrumentales de la costa S.A.S</CardTitle>
           <CardDescription>Inicia sesión para acceder al sistema de gestión</CardDescription>
         </CardHeader>
         <CardContent>
